@@ -1,0 +1,385 @@
+/* Survey Aesthetic Styles - Holy Angel University */
+
+:root {
+    --hau-maroon: #800000;
+    --hau-maroon-dark: #600000;
+    --hau-maroon-light: #a00000;
+    --hau-gold: #FFD700;
+    --hau-gold-light: #FFEC8B;
+    --hau-gold-dark: #B8860B;
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --white: #ffffff;
+    --bg-light: #f8f9fa;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #822323;
+    background: linear-gradient(135deg, #800000 0%, #4a0000 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/cubes.png');
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.survey-container {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 0;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.8s ease-out;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Grid Structure */
+.form-header-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    border-bottom: 2px solid #333;
+    align-items: stretch;
+}
+
+.header-logo-section {
+    padding: 20px;
+    border-right: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hau-logo-img-small {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.header-title-section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.official-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.official-subtitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 5px 0 0;
+    color: var(--hau-maroon);
+}
+
+.header-doc-box {
+    padding: 20px;
+    border-left: 2px solid #333;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fdfdfd;
+}
+
+.doc-line {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+/* Row Styling */
+.form-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border-bottom: 2px solid #333;
+    align-items: stretch;
+}
+
+.form-row.full-width {
+    grid-template-columns: 1fr;
+    padding: 15px;
+}
+
+.row-label {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    font-weight: 700;
+    border-right: 2px solid #333;
+    display: flex;
+    align-items: center;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.row-content {
+    display: flex;
+    align-items: center;
+}
+
+.row-content input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-family: inherit;
+    background: transparent;
+}
+
+.row-content input:focus {
+    outline: none;
+    background: rgba(128, 0, 0, 0.03);
+}
+
+/* Category Grid */
+.category-group {
+    display: flex;
+    gap: 40px;
+    padding: 15px 30px;
+    align-items: center;
+}
+
+.cat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.form-check-input {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: var(--transition);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(128, 0, 0, 0.25);
+    border-color: var(--hau-maroon);
+}
+
+.form-check-input:checked {
+    background-color: var(--hau-maroon) !important;
+    border-color: var(--hau-maroon) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e") !important;
+    background-size: 80% !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Satisfaction Grid */
+.satisfaction-section {
+    padding: 10px 30px;
+    border-bottom: 2px solid #333;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.satisfaction-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.sat-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 8px 15px;
+    border-radius: 8px;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.sat-option:hover {
+    background: rgba(128, 0, 0, 0.05);
+}
+
+.btn-check:checked+.sat-option {
+    background: rgba(128, 0, 0, 0.1);
+    border: 2px solid var(--hau-maroon);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(128, 0, 0, 0.15);
+}
+
+.btn-check:checked+.sat-option .sat-label {
+    color: var(--hau-maroon);
+}
+
+.sat-option i {
+    font-size: 1.8rem;
+}
+
+.sm-smile {
+    color: #198754;
+}
+
+.sm-frown {
+    color: #dc3545;
+}
+
+.sat-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* Comments */
+.comments-section {
+    padding: 10px 30px;
+}
+
+.comments-label {
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.comments-area {
+    width: 100%;
+    min-height: 100px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: none;
+    background: #fff;
+}
+
+.btn-submit-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.btn-submit-premium {
+    background: var(--hau-maroon);
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit-premium:hover {
+    background: var(--hau-maroon-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.admin-footer {
+    padding: 30px;
+    text-align: center;
+    border-top: 2px solid #333;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.admin-link {
+    color: var(--hau-maroon);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* Tablet Optimization */
+@media (max-width: 900px) {
+    body {
+        padding: 0;
+    }
+
+    .survey-container {
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .form-header-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-logo-section {
+        border-right: none;
+        border-bottom: 2px solid #333;
+    }
+
+    .header-doc-box {
+        border-left: none;
+        border-top: 2px solid #333;
+        text-align: center;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .row-label {
+        border-right: none;
+        border-bottom: 2px solid #333;
+    }
+}
