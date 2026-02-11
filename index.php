@@ -1,143 +1,136 @@
+<?php
+session_start();
+// The original index.php didn't have specific PHP logic here, 
+// so we keep it minimal while supporting session if needed.
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Customer Satisfaction Survey</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link href="style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Holy Angel University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin_login.css">
+    <meta name="description" content="Admin Login Portal for Holy Angel University Customer Satisfaction Survey">
 </head>
 <body>
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-9 col-md-10">
-                <div class="card border-0 shadow-lg form-card">
-                    
-                    <!-- Header Section to match the official form -->
-                    <div class="card-header bg-white border-bottom-2">
-                        <div class="row align-items-center">
-                            <div class="col-md-2 text-center d-none d-md-block">
-                                <!-- Placeholder for Logo -->
-                                <i class="fas fa-university fa-4x text-dark"></i>
-                            </div>
-                            <div class="col-md-6 text-center text-md-start">
-                                <h2 class="h4 fw-bold mb-0 text-uppercase">Holy Angel University</h2>
-                                <h3 class="h5 mb-0 text-muted">Customer Satisfaction Form</h3>
-                            </div>
-                            <div class="col-md-4 mt-3 mt-md-0">
-                                <div class="border border-dark p-2 small">
-                                    <div class="fw-bold">FM-AAC-2006</div>
-                                    <div>Revision: 0</div>
-                                    <div>Effectivity Date: May 1, 2025</div>
-                                </div>
-                            </div>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="login-container">
+        <!-- Left Panel - Branding -->
+        <div class="branding-panel">
+            <div class="branding-content">
+                <div class="logo-container">
+                    <div class="logo-circle">
+                        <img src="images/HAU.png" alt="HAU Logo" class="hau-logo-img">
+                    </div>
+                </div>
+                <h1 class="brand-title">Holy Angel University</h1>
+                <p class="brand-subtitle">Customer Satisfaction Portal</p>
+                <div class="decorative-line"></div>
+                <p class="brand-tagline">Excellence • Innovation • Service</p>
+            </div>
+        </div>
+
+        <!-- Right Panel - Login Form -->
+        <div class="form-panel">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 class="form-title">Admin Login</h2>
+                    <p class="form-subtitle">Access the administrative dashboard</p>
+                </div>
+
+                <?php if (isset($_SESSION['error_message'])): ?>
+                <div class="error-message">
+                    <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span><?php echo htmlspecialchars($_SESSION['error_message']);
+    unset($_SESSION['error_message']); ?></span>
+                </div>
+                <?php
+endif; ?>
+
+                <form method="POST" action="survey.php" class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                class="form-input" 
+                                placeholder="Enter your username"
+                                required
+                                autocomplete="username"
+                            >
                         </div>
                     </div>
 
-                    <div class="card-body p-4 p-md-5">
-                        
-                        <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="fas fa-check-circle me-2"></i> Feedback submitted successfully!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php
-endif; ?>
-
-                        <form action="" method="POST">
-                            <!-- Name -->
-                            <div class="mb-3 row align-items-center border-bottom pb-3">
-                                <label for="name" class="col-sm-3 col-form-label fw-bold">Name (Optional)</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-lg border-0 bg-light" id="name" name="name">
-                                </div>
-                            </div>
-
-                            <!-- Category -->
-                            <div class="mb-3 row align-items-center border-bottom pb-3">
-                                <label class="col-sm-3 col-form-label fw-bold">Select Category</label>
-                                <div class="col-sm-9">
-                                    <div class="d-flex flex-wrap gap-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="category[]" value="Student" id="cat_student">
-                                            <label class="form-check-label" for="cat_student">Student</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="category[]" value="Employee" id="cat_employee">
-                                            <label class="form-check-label" for="cat_employee">Employee</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="category[]" value="Others" id="cat_others">
-                                            <label class="form-check-label" for="cat_others">Others</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Date -->
-                            <div class="mb-3 row align-items-center border-bottom pb-3">
-                                <label for="date" class="col-sm-3 col-form-label fw-bold">Date</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-lg border-0 bg-light" id="date" name="date" value="<?php echo date('Y-m-d'); ?>">
-                                </div>
-                            </div>
-
-                            <!-- Service/Purpose -->
-                            <div class="mb-4 row align-items-center border-bottom pb-3">
-                                <label for="service" class="col-sm-3 col-form-label fw-bold">Service/ Purpose</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-lg border-0 bg-light" id="service" name="service">
-                                </div>
-                            </div>
-
-                            <!-- Satisfaction Check -->
-                            <div class="mb-5 text-center bg-light p-4 rounded-3 border">
-                                <label class="form-label fw-bold h4 d-block mb-4">Please check one</label>
-                                <div class="row justify-content-center g-3">
-                                    <div class="col-6 col-md-4">
-                                        <input type="radio" class="btn-check" name="satisfaction" id="satisfied" value="Satisfied" autocomplete="off" required>
-                                        <label class="btn btn-outline-success w-100 p-3 h-100 d-flex flex-column align-items-center justify-content-center gap-2" for="satisfied">
-                                            <i class="far fa-smile fa-3x"></i>
-                                            <span class="h5 mb-0 fw-bold">SATISFIED</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-6 col-md-4">
-                                        <input type="radio" class="btn-check" name="satisfaction" id="notsatisfied" value="Not Satisfied" autocomplete="off">
-                                        <label class="btn btn-outline-danger w-100 p-3 h-100 d-flex flex-column align-items-center justify-content-center gap-2" for="notsatisfied">
-                                            <i class="far fa-frown fa-3x"></i>
-                                            <span class="h5 mb-0 fw-bold">NOT SATISFIED</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Comments -->
-                            <div class="mb-4">
-                                <label for="comments" class="form-label fw-bold h5">Comment/Suggestion:</label>
-                                <textarea class="form-control form-control-lg bg-light" id="comments" name="comments" rows="5"></textarea>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <div class="d-grid gap-2 mt-5">
-                                <button type="submit" class="btn btn-dark btn-lg py-3 shadow-sm rounded-pill text-uppercase fw-bold letter-spacing-1">
-                                    Submit Form
-                                </button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <button type="button" class="toggle-password" id="togglePassword" title="Toggle Password Visibility">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="card-footer text-center text-muted py-3 bg-white border-top-0">
-                        <small>Holy Angel University - Customer Satisfaction Portal</small>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="remember" id="remember">
+                            <span class="checkmark"></span>
+                            <span class="checkbox-label">Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
                     </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Sign In</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="form-footer">
+                    <p class="footer-text">Need help? <a href="mailto:support@hau.edu.ph" class="footer-link">Contact Support</a></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin_login.js"></script>
 </body>
 </html>
