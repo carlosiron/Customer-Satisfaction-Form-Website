@@ -1,9 +1,28 @@
-version: '3.8'
-
 services:
   web:
-    build: .
+    image: fakerprime/customersatisfactionwebsite:latest
     ports:
       - "8080:80"
+    environment:
+      # Database credentials passed to PHP via getenv()
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: rootpassword
+      DB_NAME: customer_satisfaction
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: customer_satisfaction
+    ports:
+      - "3307:3306"
     volumes:
-      - .:/var/www/html
+      # Persist database data across container restarts
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

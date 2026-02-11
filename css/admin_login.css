@@ -433,19 +433,25 @@ body {
     text-align: center;
 }
 
-.footer-text {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.footer-link {
+.back-to-survey-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--hau-maroon);
+    border-radius: 10px;
     color: var(--hau-maroon);
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: var(--transition);
 }
 
-.footer-link:hover {
-    text-decoration: underline;
+.back-to-survey-btn:hover {
+    background: var(--hau-maroon);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(128, 0, 0, 0.2);
 }
 
 /* Error Message */

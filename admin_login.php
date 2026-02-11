@@ -1,7 +1,44 @@
 <?php
-session_start();
-// The original index.php didn't have specific PHP logic here, 
-// so we keep it minimal while supporting session if needed.
+/**
+ * Admin Login Page
+ *
+ * Handles admin authentication using AuthHelper.
+ * On successful login, redirects to admin/dashboard.php.
+ * On failure, displays an error message via session flash.
+ */
+
+// --- Load backend dependencies ---
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/helpers/AuthHelper.php';
+
+// Start session for error message flashing
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// --- If already logged in, redirect to dashboard ---
+if (AuthHelper::isLoggedIn()) {
+    header("Location: admin/dashboard.php");
+    exit;
+}
+
+// --- Handle form submission ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = isset($_POST['username']) ? trim($_POST['username']) : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+    if (AuthHelper::login($conn, $username, $password)) {
+        // Successful login — redirect to dashboard
+        header("Location: admin/dashboard.php");
+        exit;
+    }
+    else {
+        // Failed login — set error message in session and redirect back
+        $_SESSION['error_message'] = 'Invalid username or password.';
+        header("Location: admin_login.php");
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +149,6 @@ endif; ?>
                             <span class="checkmark"></span>
                             <span class="checkbox-label">Remember me</span>
                         </label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
                     </div>
 
                     <button type="submit" class="btn btn-primary">
@@ -125,8 +161,7 @@ endif; ?>
                 </form>
 
                 <div class="form-footer">
-                    <p class="footer-text">Need help? <a href="mailto:support@hau.edu.ph" class="footer-link">Contact Support</a></p>
-                    <p class="footer-text mt-2"><a href="index.php" class="footer-link">Back to Survey</a></p>
+                    <a href="index.php" class="back-to-survey-btn">← Back to Survey</a>
                 </div>
             </div>
         </div>
