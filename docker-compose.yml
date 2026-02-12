@@ -1,5 +1,6 @@
 services:
   web:
+    build: .
     image: fakerprime/customersatisfactionwebsite:latest
     ports:
       - "8080:80"
@@ -11,6 +12,8 @@ services:
       DB_NAME: customer_satisfaction
     depends_on:
       - db
+    volumes:
+      - .:/var/www/html/
 
   db:
     image: mysql:8.0
