@@ -45,12 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="description" content="Customer Satisfaction Survey Portal for Holy Angel University">
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="background-animation">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-        <div class="circle circle-3"></div>
-    </div>
+    <!-- Dynamic Interactive Background -->
+    <canvas id="bg-canvas"></canvas>
 
     <div class="survey-container">
         <!-- Success/Error Message -->
@@ -173,6 +169,7 @@ endif; ?>
             })
         })()
     </script>
+    <script src="js/interactive_bg.js?v=1.1"></script>
 </body>
 </html>
 
