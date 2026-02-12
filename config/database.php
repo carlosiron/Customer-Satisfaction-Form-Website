@@ -20,13 +20,32 @@ $db_pass = getenv('DB_PASS') ?: ''; // XAMPP default: no password
 $db_name = getenv('DB_NAME') ?: 'customer_satisfaction';
 
 // --- Connect to MySQL server (without selecting a database yet) ---
-$conn = new mysqli($db_host, $db_user, $db_pass);
+$max_retries = 5;
+$retry_delay = 2; // seconds
+$attempt = 0;
+$connected = false;
 
-if ($conn->connect_error) {
-    // Log the real error, show a generic message to the user
-    error_log("Database connection failed: " . $conn->connect_error);
-    die("Unable to connect to the database. Please try again later.");
-}
+do {
+    try {
+        $attempt++;
+        // Suppress warnings to avoid cluttering logs during expected failures
+        $conn = @new mysqli($db_host, $db_user, $db_pass);
+        
+        if ($conn->connect_error) {
+            throw new Exception($conn->connect_error);
+        }
+        
+        $connected = true;
+    } catch (Exception $e) {
+        if ($attempt < $max_retries) {
+            error_log("Database connection attempt $attempt failed: " . $e->getMessage() . ". Retrying in $retry_delay seconds...");
+            sleep($retry_delay);
+        } else {
+            error_log("Database connection failed after $max_retries attempts: " . $e->getMessage());
+            die("Unable to connect to the database. The database server might be starting up. Please try again in a moment.");
+        }
+    }
+} while (!$connected && $attempt < $max_retries);
 
 // --- Create the database if it doesn't exist ---
 $conn->query("CREATE DATABASE IF NOT EXISTS `$db_name` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");

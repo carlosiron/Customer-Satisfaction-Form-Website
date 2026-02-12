@@ -32,9 +32,13 @@ class FormHelper
         }
 
         // --- Sanitize optional fields ---
-        $name = !empty($data['name']) ? trim($data['name']) : null;
-        $service = !empty($data['service']) ? trim($data['service']) : null;
-        $comments = !empty($data['comments']) ? trim($data['comments']) : null;
+        // --- Sanitize optional fields and truncate to fit DB schema ---
+        // 'name' and 'service' are VARCHAR(255)
+        $name = !empty($data['name']) ? mb_substr(trim($data['name']), 0, 255) : null;
+        $service = !empty($data['service']) ? mb_substr(trim($data['service']), 0, 255) : null;
+        
+        // 'comments' is TEXT (approx 65k bytes)
+        $comments = !empty($data['comments']) ? mb_substr(trim($data['comments']), 0, 65000) : null;
 
         // --- Handle category (single radio button value) ---
         $category = null;

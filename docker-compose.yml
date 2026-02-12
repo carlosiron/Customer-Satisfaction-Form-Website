@@ -1,9 +1,9 @@
 services:
   web:
-    build: .
     image: fakerprime/customersatisfactionwebsite:latest
     ports:
       - "8080:80"
+    restart: always # Keep container running
     environment:
       # Database credentials passed to PHP via getenv()
       DB_HOST: db
@@ -12,8 +12,6 @@ services:
       DB_NAME: customer_satisfaction
     depends_on:
       - db
-    volumes:
-      - .:/var/www/html/
 
   db:
     image: mysql:8.0
